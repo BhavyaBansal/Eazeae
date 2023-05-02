@@ -26,7 +26,7 @@ function PlaceCard({
   // console.log(images);
   const navigation = useNavigation();
   function placeDetailHandler() {
-    console.log("Pressed");
+    // console.log("Pressed");
     navigation.navigate("Place", {
       placeId: id,
     });

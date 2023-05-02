@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 30,
     borderColor: Colors.red100,
+    elevation:1
   },
   textStyle: {
     color: Colors.red100,

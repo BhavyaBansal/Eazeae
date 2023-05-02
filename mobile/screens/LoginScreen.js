@@ -37,7 +37,7 @@ export default function LoginScreen() {
       loginError.message = "password is required!";
       setError(loginError);
     } else {
-      console.log("done");
+      // console.log("done");
       setError(false);
     }
     // email
@@ -48,7 +48,7 @@ export default function LoginScreen() {
       setError(loginError);
     } else {
       // this.setState({ email: text });
-      console.log("Email is Correct");
+      // console.log("Email is Correct");
     }
 
     // pass

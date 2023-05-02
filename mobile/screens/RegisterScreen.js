@@ -56,7 +56,7 @@ export default function RegisterScreen() {
       loginError.message = "password is required!";
       setError(loginError);
     } else {
-      console.log("done");
+      // console.log("done");
       setError(false);
     }
 
@@ -75,7 +75,7 @@ export default function RegisterScreen() {
       setError(loginError);
     } else {
       // this.setState({ email: text });
-      console.log("Email is Correct");
+      // console.log("Email is Correct");
     }
     // phone validation
     const regPhone = /^[0]?[6789]\d{9}$/;
@@ -85,7 +85,7 @@ export default function RegisterScreen() {
       setError(loginError);
     } else {
       // setError(false);
-      console.log("done phone");
+      // console.log("done phone");
     }
 
     //pass length
@@ -94,7 +94,7 @@ export default function RegisterScreen() {
       loginError.message = "length should more than 8";
       setError(loginError);
     } else {
-      console.log("done");
+      // console.log("done");
     }
   };
   return (

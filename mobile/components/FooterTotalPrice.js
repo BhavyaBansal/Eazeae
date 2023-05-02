@@ -7,12 +7,16 @@ function FooterTotalPrice({ totalPrice }) {
         Total Price: <Text style={styles.priceText}>₹{totalPrice}</Text>
       </Text>
       <Pressable
-        style={styles.buttonContainer}
+        style={({ pressed }) =>
+          pressed
+            ? [styles.pressed, styles.buttonContainer]
+            : styles.buttonContainer
+        }
         android_ripple={{
           color: "#ccc",
           foreground: true,
           borderless: true,
-          radius: 35,
+          radius: 45,
         }}
       >
         <View>
@@ -40,6 +44,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
+    overflow:'hidden',
+    elevation:2,
   },
   navText: {
     fontSize: 14,
