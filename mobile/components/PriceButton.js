@@ -2,7 +2,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import Colors from "../constants/colors";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
-function PriceButton({ price, type }) {
+function PriceButton({ price, type, onChangeAdd, onChangeSub, onDiscard }) {
   // let count = 0;
   // let totalPrice = 0;
   const [color, setColor] = useState(false);
@@ -12,11 +12,14 @@ function PriceButton({ price, type }) {
   function maintainPriceandCountHandler() {
     setCount(count + 1);
     setTotalPrice(tp * (count + 1));
+    onChangeAdd(count + 1, type, tp);
   }
   function removePriceandCountHandler() {
     setCount(count - 1);
     setTotalPrice(tp * (count - 1));
-    if (count - 1 === 0) {
+    onChangeSub(count - 1, type, tp);
+    if (count - 1 <= 0) {
+      onDiscard(type);
       setColor(false);
     }
   }
@@ -25,10 +28,12 @@ function PriceButton({ price, type }) {
       setColor(true);
       setTotalPrice(tp);
       setCount(1);
+      onChangeAdd(1, type, tp);
     } else {
       setTotalPrice(0);
       setCount(0);
       setColor(false);
+      onDiscard(type);
     }
   }
   colorval = color;
@@ -48,17 +53,17 @@ function PriceButton({ price, type }) {
         <View style={[styles.outerContainer, { margin: 5 }]}>
           <Pressable
             style={{ display: color === true ? "flex" : "none" }}
-            onPress={maintainPriceandCountHandler}
-            android_ripple={{ color: "#ccc" }}
-          >
-            <Ionicons name="add-circle-sharp" size={23} />
-          </Pressable>
-          <Pressable
-            style={{ display: color === true ? "flex" : "none" }}
             onPress={removePriceandCountHandler}
             android_ripple={{ color: "#ccc" }}
           >
             <Ionicons name="remove-circle-sharp" size={23} />
+          </Pressable>
+          <Pressable
+            style={{ display: color === true ? "flex" : "none" }}
+            onPress={maintainPriceandCountHandler}
+            android_ripple={{ color: "#ccc" }}
+          >
+            <Ionicons name="add-circle-sharp" size={23} />
           </Pressable>
         </View>
         <View
@@ -79,7 +84,7 @@ export default PriceButton;
 const styles = StyleSheet.create({
   outerContainer: {
     flexDirection: "row",
-    justifyContent:'space-around'
+    justifyContent: "space-around",
   },
   buttonContainer: {
     width: 80,
@@ -96,19 +101,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 1,
   },
-  showPrice:{
-    alignSelf:'center',
-    margin:5,
-    borderWidth:1,
-    borderColor:Colors.red100,
-    padding:5,
-    borderRadius:5,
+  showPrice: {
+    alignSelf: "center",
+    margin: 5,
+    borderWidth: 1,
+    borderColor: Colors.red100,
+    padding: 5,
+    borderRadius: 5,
   },
-  priceText:{
-    color:Colors.red100,
-    letterSpacing:0.5,
-    fontSize:14,
-  }
+  priceText: {
+    color: Colors.red100,
+    letterSpacing: 0.5,
+    fontSize: 14,
+  },
   // makeVisible:{
   //     display:'none'
   // }
