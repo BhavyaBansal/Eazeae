@@ -40,6 +40,7 @@ function PriceButton({ price, type, onChangeAdd, onChangeSub, onDiscard }) {
   return (
     <>
       <View>
+        {/* <View><Text>Hello</Text></View> */}
         <Pressable
           style={[
             styles.buttonContainer,
@@ -66,16 +67,20 @@ function PriceButton({ price, type, onChangeAdd, onChangeSub, onDiscard }) {
             <Ionicons name="add-circle-sharp" size={23} />
           </Pressable>
         </View>
-        <View
-          style={[
-            { display: color === true ? "flex" : "none" },
-            styles.showPrice,
-          ]}
-        >
-          <Text style={styles.priceText}>
-            {count} : ₹{totalPrice}
-          </Text>
-        </View>
+        {color === true ? (
+          <View
+            style={[
+              // { display: color === true ? "flex" : "none" },
+              styles.showPrice,
+            ]}
+          >
+            <Text style={styles.priceText}>
+              {count} : ₹{totalPrice}
+            </Text>
+          </View>
+        ) : (
+          ""
+        )}
       </View>
     </>
   );
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 30,
     borderColor: Colors.red100,
-    elevation:1
+    elevation: 1,
   },
   textStyle: {
     color: Colors.red100,
