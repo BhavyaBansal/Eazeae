@@ -20,7 +20,7 @@ const PORT = 3000;
 //   });
 mongoose.set("strictQuery", false);
 const url =
-  "mongodb+srv://bhavyabansal0916:y3pSoxrLeu64jWCP@cluster0.vpofow2.mongodb.net/HRM";
+  "mongodb+srv://bhavyabansal0916:jKjzS10MYLbwSwRb@cluster0.tnbxcxi.mongodb.net/Eazeae";
 // mongodb+srv://bhavyabansal0916:<password>@cluster0.vpofow2.mongodb.net/
 // mongodb+srv://bhavyabansal0916:<password>@cluster0.vpofow2.mongodb.net/
 mongoose.connect(url, {

@@ -196,12 +196,12 @@ export default function RegisterScreen() {
             marginBottom: 25,
           }}
         >
-          <Ionicons
+          {/* <Ionicons
             name="ios-lock-closed-outline"
             size={20}
             color="#666"
             style={{ marginRight: 5 }}
-          />
+          /> */}
           <TextInput
             placeholder="Password"
             style={{ flex: 1, paddingVertical: 0 }}
@@ -224,12 +224,12 @@ export default function RegisterScreen() {
             marginBottom: 25,
           }}
         >
-          <Ionicons
+          {/* <Ionicons
             name="ios-lock-closed-outline"
             size={20}
             color="#666"
             style={{ marginRight: 5 }}
-          />
+          /> */}
           <TextInput
             placeholder="Confirm Password"
             style={{ flex: 1, paddingVertical: 0 }}
