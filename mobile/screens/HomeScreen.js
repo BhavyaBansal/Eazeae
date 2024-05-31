@@ -5,13 +5,12 @@ import Colors from "../constants/colors";
 import { PLACES } from "../data/placesData";
 import PlaceCard from "../components/PlaceCard";
 import FooterNavBar from "../components/FooterNavBar";
-function HomeScreen() {
+function HomeScreen({ route }) {
   const catId = "c5";
-  // console.log(catId);
   const displayPlaces = PLACES.filter((place) => {
     return place.categoryIds.indexOf(catId) >= 0;
   });
-  function renderPlaces(itemData){
+  function renderPlaces(itemData) {
     const item = itemData.item;
     const placeProps = {
       id: item.id,
@@ -24,7 +23,7 @@ function HomeScreen() {
       closingTime: item.closingTime,
       prices: item.packsObjWithPrice,
     };
-    return <PlaceCard {...placeProps}/>
+    return <PlaceCard {...placeProps} />;
   }
   return (
     <View style={styles.outerContainer}>
@@ -33,11 +32,14 @@ function HomeScreen() {
         <CategoriesScroll />
       </View>
       <View style={styles.innerContainer2}>
-        <FlatList data={displayPlaces} keyExtractor={(place) => place.id}
-        renderItem={renderPlaces}
-        showsVerticalScrollIndicator={false} />
+        <FlatList
+          data={displayPlaces}
+          keyExtractor={(place) => place.id}
+          renderItem={renderPlaces}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
-      <FooterNavBar/>
+      <FooterNavBar />
     </View>
   );
 }
@@ -56,8 +58,8 @@ const styles = StyleSheet.create({
     // elevation:4,
   },
   innerContainer2: {
-    flex:1,
-    padding:10,
+    flex: 1,
+    padding: 10,
     // elevation:4,
   },
 });

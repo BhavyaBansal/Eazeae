@@ -12,6 +12,8 @@ import PlaceScreen from "./screens/PlaceScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ContactFormScreen from "./screens/ContactFormScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PaymentDetailsScreen from "./screens/PaymentDetailsScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -42,10 +44,24 @@ export default function App() {
             }}
           />
           <Stack.Screen
+            name="PS"
+            component={PaymentScreen}
+            options={{
+              title: "Payment Methods",
+            }}
+          />
+          <Stack.Screen
             name="Cultural"
             component={CulturalScreen}
             options={{
               title: "Cultural",
+            }}
+          />
+          <Stack.Screen
+            name="PDS"
+            component={PaymentDetailsScreen}
+            options={{
+              title: "Ticket Details",
             }}
           />
           <Stack.Screen

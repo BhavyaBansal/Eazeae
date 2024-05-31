@@ -1,6 +1,14 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import Colors from "../constants/colors";
-function FooterTotalPrice({ totalPrice }) {
+import { useNavigation } from "@react-navigation/native";
+function FooterTotalPrice({ totalPrice, placeDetails }) {
+  const navigation = useNavigation();
+  function openPaymentScreen() {
+    navigation.navigate("PS", {
+      totalP: totalPrice,
+      placeDetails: placeDetails,
+    });
+  }
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.navText}>
@@ -20,7 +28,9 @@ function FooterTotalPrice({ totalPrice }) {
         }}
       >
         <View>
-          <Text style={styles.buttonText}>Pay Now</Text>
+          <Text style={styles.buttonText} onPress={openPaymentScreen}>
+            Pay Now
+          </Text>
         </View>
       </Pressable>
     </View>
@@ -44,8 +54,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    overflow:'hidden',
-    elevation:2,
+    overflow: "hidden",
+    elevation: 2,
   },
   navText: {
     fontSize: 14,

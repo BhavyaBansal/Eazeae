@@ -1,5 +1,4 @@
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState } from "react";
 import {
   SafeAreaView,
@@ -8,58 +7,66 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import CustomButton from "../components/CustomButton";
-
 import LoginImg from "../public/images/signup.jpg";
 import FacebookImg from "../public/images/facebook.jpg";
 import TwitterImg from "../public/images/twitter.jpg";
 import GoogleImg from "../public/images/google.jpg";
-import { ScrollView } from "react-native";
 import Colors from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
+
 export default function LoginScreen() {
   const navigation = useNavigation();
-  function registerNav(){
+
+  function registerNav() {
     navigation.navigate("Register");
   }
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ field: "", message: "" });
+  const [success, setSuccess] = useState(false);
+
   const onSubmit = () => {
     let loginError = { field: "", message: "" };
+
     if (email === "") {
       loginError.field = "email";
-      loginError.message = "email is required!";
+      loginError.message = "Email is required!";
       setError(loginError);
+      return;
     } else if (password === "") {
       loginError.field = "password";
-      loginError.message = "password is required!";
+      loginError.message = "Password is required!";
       setError(loginError);
-    } else {
-      // console.log("done");
-      setError(false);
-    }
-    // email
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(email) === false && email != "") {
-      loginError.field = "email";
-      loginError.message = "email is not valid";
-      setError(loginError);
-    } else {
-      // this.setState({ email: text });
-      // console.log("Email is Correct");
+      return;
     }
 
-    // pass
+    // Email validation
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(email) === false) {
+      loginError.field = "email";
+      loginError.message = "Email is not valid!";
+      setError(loginError);
+      return;
+    }
+
+    // If validation passes
+    setError({ field: "", message: "" });
+    setSuccess(true);
+
+    // Redirect after a short delay
+    setTimeout(() => {
+      setSuccess(false);
+      navigation.navigate("All");
+    }, 2000);
   };
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        // style={{ paddingHorizontal: 30 }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ paddingHorizontal: 30 }}>
           <View style={{ alignItems: "center", marginTop: 5 }}>
             <Image
@@ -67,7 +74,6 @@ export default function LoginScreen() {
               style={{
                 marginTop: 15,
                 width: 300,
-
                 height: 300,
               }}
             />
@@ -78,11 +84,16 @@ export default function LoginScreen() {
               fontWeight: "500",
               color: Colors.red100,
               marginBottom: 30,
-              letterSpacing:1,
+              letterSpacing: 1,
             }}
           >
             Login
           </Text>
+          {success && (
+            <Text style={{ color: "green", marginBottom: 20 }}>
+              Login Successful!
+            </Text>
+          )}
           <View
             style={{
               flexDirection: "row",
@@ -105,13 +116,12 @@ export default function LoginScreen() {
               value={email}
               onChangeText={(value) => setEmail(value)}
             />
-            {error.field === "email" && (
-              <Text style={{ marginBottom: 5, color: "red" }}>
-                {error.message}
-              </Text>
-            )}
           </View>
-
+          {error.field === "email" && (
+            <Text style={{ marginBottom: 5, color: "red" }}>
+              {error.message}
+            </Text>
+          )}
           <View
             style={{
               flexDirection: "row",
@@ -121,12 +131,6 @@ export default function LoginScreen() {
               marginBottom: 25,
             }}
           >
-            {/* <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{ marginRight: 5 }}
-            /> */}
             <TextInput
               placeholder="Password"
               style={{ flex: 1, paddingVertical: 0 }}
@@ -134,17 +138,17 @@ export default function LoginScreen() {
               value={password}
               onChangeText={(value) => setPassword(value)}
             />
-            {error.field === "password" && (
-              <Text style={{ marginBottom: 5, color: "red" }}>
-                {error.message}
-              </Text>
-            )}
             <TouchableOpacity onPress={() => {}}>
               <Text style={{ color: Colors.purple100, fontWeight: "700" }}>
                 Forgot?
               </Text>
             </TouchableOpacity>
           </View>
+          {error.field === "password" && (
+            <Text style={{ marginBottom: 5, color: "red" }}>
+              {error.message}
+            </Text>
+          )}
           <CustomButton label={"Login"} onPress={onSubmit} />
           <Text
             style={{ textAlign: "center", color: "#666", marginBottom: 30 }}
@@ -226,7 +230,13 @@ export default function LoginScreen() {
           >
             <Text>New to the app? </Text>
             <TouchableOpacity onPress={registerNav}>
-              <Text style={{ color: Colors.purple100, fontWeight: "700",textDecorationLine:'underline' }}>
+              <Text
+                style={{
+                  color: Colors.purple100,
+                  fontWeight: "700",
+                  textDecorationLine: "underline",
+                }}
+              >
                 Register
               </Text>
             </TouchableOpacity>

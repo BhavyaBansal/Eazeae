@@ -1,11 +1,15 @@
 import { View, TextInput, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../constants/colors";
-import * as Location from 'expo-location';
-import { useState,useEffect } from "react";
+import * as Location from "expo-location";
+import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { PLACES } from "../data/placesData";
 function SearchBar() {
+  const navigation = useNavigation();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [textt, setTextt] = useState("");
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -26,16 +30,30 @@ function SearchBar() {
       text = JSON.stringify(location);
       let lat = location.coords.latitude;
       let lon = location.coords.longitude;
-      console.log(lat,lon)
+      console.log(lat, lon);
     }
     console.log(text);
   }
+  function searchPlace() {
+    const displayPlaces = PLACES.filter((place) => {
+      return place.name.toLowerCase().includes(textt.toLowerCase());
+    });
+    navigation.navigate("All", { places: displayPlaces });
+    // console.log(textt);
+  }
   return (
     <View style={styles.searchContainer}>
-      <Pressable android_ripple={{ color: "#ccc", radius: 11 }} onPress={getLonLat}>
+      <Pressable
+        android_ripple={{ color: "#ccc", radius: 11 }}
+        onPress={searchPlace}
+      >
         <Ionicons name="search" size={20} color={Colors.red100} />
       </Pressable>
-      <TextInput placeholder="State? City?" style={styles.input} value="##"/>
+      <TextInput
+        placeholder="State? City?"
+        style={styles.input}
+        onChangeText={(searchText) => setTextt(searchText)}
+      />
       <Pressable android_ripple={{ color: "#ccc", radius: 11 }}>
         <Ionicons name="settings-outline" size={20} color={Colors.red100} />
       </Pressable>

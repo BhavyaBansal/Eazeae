@@ -180,7 +180,7 @@ function PlaceScreen({ route, navigation }) {
           <Reviews reviews={selectedPlace.reviews} />
         </View>
       </ScrollView>
-      <FooterTotalPrice totalPrice={priceTotal} />
+      <FooterTotalPrice totalPrice={priceTotal} placeDetails={selectedPlace} />
     </>
   );
 }
